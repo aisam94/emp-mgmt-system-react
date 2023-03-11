@@ -45,21 +45,21 @@ export default function Navbar() {
           </div>
         ) : (
           <div className="flex">
-            <NavLink className="flex items-center mx-2 space-x-1" to="/department">
+            <NavLink className="flex items-center mx-2 space-x-1 hover:scale-110 transition-all" to="/department">
               <img
                 className="flex h-6 w-6"
                 src="/icons/dept.svg"
               />
               <h1>Departments</h1>
             </NavLink>
-            <NavLink className="flex items-center mx-2 space-x-1" to="/roles">
+            <NavLink className="flex items-center mx-2 space-x-1 hover:scale-110 transition-all" to="/roles">
               <img
                 className="flex h-5 w-5"
                 src="/icons/role.svg"
               />
               <h1>Roles</h1>
             </NavLink>
-            <NavLink className="flex items-center mx-2 space-x-1" to="/record">
+            <NavLink className="flex items-center mx-2 space-x-1 hover:scale-110 transition-all" to="/record">
               <img
                 className="flex h-6 w-6"
                 src="/icons/employees.svg"
