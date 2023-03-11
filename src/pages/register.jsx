@@ -5,11 +5,21 @@ import { register } from "../actions/userActions";
 import { isExpired } from "react-jwt";
 
 const Register = () => {
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [isPassword2Shown, setIsPassword2Shown] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
   const token = userInfo ? userInfo.token : "";
+
+  const togglePasswordVisibility = (event) => {
+    setIsPasswordShown(!isPasswordShown);
+  };
+
+  const togglePassword2Visibility = (event) => {
+    setIsPassword2Shown(!isPassword2Shown);
+  };
 
   const submit = (event) => {
     event.preventDefault();
@@ -81,26 +91,65 @@ const Register = () => {
             />
 
             {/*Password*/}
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={password}
-              className="appearance-none border border-gray py-1 px-2 focus:outline-none focus:border-primary"
-              onChange={(e) => change(e)}
-              required
-            />
+            <div className="relative flex items-center">
+              <input
+                type={isPasswordShown ? "text" : "password"}
+                placeholder="Password"
+                name="password"
+                value={password}
+                className="appearance-none border border-gray py-1 px-2 focus:outline-none focus:border-primary"
+                onChange={(e) => change(e)}
+                required
+              />
+              {/* toggle password visibility */}
+              <div
+                className="absolute top-1/2 transform -translate-y-1/2 right-3"
+                onClick={togglePasswordVisibility}
+              >
+                {isPasswordShown ? (
+                  <img
+                    src="/icons/eye_off.svg"
+                    className="cursor-pointer w-5 h-5"
+                  />
+                ) : (
+                  <img
+                    src="/icons/eye_on.svg"
+                    className="cursor-pointer w-5 h-5"
+                  />
+                )}
+              </div>
+            </div>
 
             {/*Password 2*/}
-            <input
-              type="password"
-              placeholder="Reenter password"
-              name="confirmPassword"
-              value={confirmPassword}
-              className="appearance-none border border-gray py-1 px-2 focus:outline-none focus:border-primary"
-              onChange={(e) => change(e)}
-              required
-            />
+            <div className="relative flex items-center">
+              <input
+                type={isPassword2Shown ? "text" : "password"}
+                placeholder="Reenter password"
+                name="confirmPassword"
+                value={confirmPassword}
+                className="appearance-none border border-gray py-1 px-2 focus:outline-none focus:border-primary"
+                onChange={(e) => change(e)}
+                required
+              />
+              {/* toggle password 2 visibility */}
+              <div
+                className="absolute top-1/2 transform -translate-y-1/2 right-3"
+                onClick={togglePassword2Visibility}
+              >
+                {isPassword2Shown ? (
+                  <img
+                    src="/icons/eye_off.svg"
+                    className="cursor-pointer w-5 h-5"
+                  />
+                ) : (
+                  <img
+                    src="/icons/eye_on.svg"
+                    className="cursor-pointer w-5 h-5"
+                  />
+                )}
+              </div>
+
+            </div>
           </div>
           {/* Register button */}
           <input

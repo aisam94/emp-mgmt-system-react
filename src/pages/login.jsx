@@ -10,12 +10,17 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
   const { email, password } = formData;
 
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
   const token = userInfo ? userInfo.token : "";
+
+  const togglePasswordVisibility = (event) => {
+    setIsPasswordShown(!isPasswordShown);
+  };
 
   const change = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -56,15 +61,34 @@ const Login = () => {
             />
 
             {/*Password*/}
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={password}
-              className="px-2 py-1 border border-gray appearance-none focus:outline-none focus:border-primary"
-              onChange={(event) => change(event)}
-              required
-            />
+            <div className="relative flex items-center">
+              <input
+                type={isPasswordShown ? "text" : "password"}
+                placeholder="Passsword"
+                name="password"
+                value={password}
+                className="px-2 py-1 border border-gray appearance-none focus:outline-none focus:border-primary"
+                onChange={(event) => change(event)}
+                required
+              />
+              {/* toggle password visibility */}
+              <div
+                className="absolute top-1/2 transform -translate-y-1/2 right-3"
+                onClick={togglePasswordVisibility}
+              >
+                {isPasswordShown ? (
+                  <img
+                    src="/icons/eye_off.svg"
+                    className="cursor-pointer w-5 h-5"
+                  />
+                ) : (
+                  <img
+                    src="/icons/eye_on.svg"
+                    className="cursor-pointer w-5 h-5"
+                  />
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Submit button */}
@@ -96,7 +120,10 @@ const Login = () => {
         </div>
 
         {/* Dont have acc. register here */}
-        <NavLink to="/register" className="text-primary hover:text-primary-focus">
+        <NavLink
+          to="/register"
+          className="text-primary hover:text-primary-focus"
+        >
           Do not have an account? Register here.
         </NavLink>
       </main>
