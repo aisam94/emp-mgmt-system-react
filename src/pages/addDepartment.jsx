@@ -28,7 +28,7 @@ const AddDepartment = () => {
   return (
     <div className="mb-12">
       <button
-        className="bg-primary hover:bg-primary-light text-white p-2 m-2 flex items-center space-x-2"
+        className="bg-secondary hover:bg-secondary-focus text-white p-2 m-2 flex items-center space-x-2"
         onClick={() => {
           navigate("/department");
         }}
