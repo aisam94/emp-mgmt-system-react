@@ -74,7 +74,7 @@ const AddEmployee = () => {
     <div className="mb-12">
       {/* <NotificationContainer /> */}
       <button
-        className="bg-primary hover:bg-primary-light text-white p-2 m-2 flex items-center space-x-2"
+        className="bg-secondary hover:bg-secondary-focus text-white p-2 m-2 flex items-center space-x-2"
         onClick={() => {
           navigate("/record");
         }}
@@ -231,7 +231,7 @@ const AddEmployee = () => {
           <input
             type="submit"
             value="SUBMIT"
-            className="py-2 text-white bg-primary  hover:bg-primary-light"
+            className="py-2 text-white bg-secondary hover:bg-secondary-focus"
           />
         </form>
       </main>
