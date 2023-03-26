@@ -6,6 +6,7 @@ import {
   deleteDepartment,
 } from "../actions/departmentActions";
 import Loading from "../components/loading";
+import { Table, Text } from "@mantine/core";
 
 const Department = () => {
   const navigate = useNavigate();
@@ -45,13 +46,13 @@ const Department = () => {
           </button>
         </div>
 
-        <div className="w-full overflow-x-auto">
-          <table className="border-collapse shadow w-full">
+        <div className="w-full overflow-x-auto px-4">
+          <Table className="" striped highlightOnHover withBorder withColumnBorders>
             <thead>
-              <tr className="text-sm md:text-lg text-white bg-primary  text-left">
+              <tr>
                 <th>Department</th>
                 <th>Description</th>
-                <th className="text-center">Action</th>
+                <th>Action</th>
               </tr>
             </thead>
 
@@ -66,18 +67,13 @@ const Department = () => {
                 departments.map((department, index) => (
                   <tr
                     key={index}
-                    className="odd:bg-white even:bg-gray hover:bg-primary-light text-md text-left"
                   >
                     <td className="flex items-center">
-                      <img
-                        src={department.pictureUrl}
-                        className="h-4 w-4 md:h-10 md:w-10 md:mx-3"
-                      />
                       <span>{department.name}</span>
                     </td>
                     <td>{department.description}</td>
                     <td className="">
-                      <div className="flex">
+                      <div className="flex w-full h-full">
                         {/* Edit */}
                         <NavLink
                           className="flex items-center justify-center bg-secondary text-white w-1/2 font-normal hover:bg-secondary-focus text-center"
@@ -100,7 +96,7 @@ const Department = () => {
                 ))
               )}
             </tbody>
-          </table>
+          </Table>
         </div>
       </main>
     </div>

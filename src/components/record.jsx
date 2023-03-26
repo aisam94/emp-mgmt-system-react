@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { deleteEmployee, listEmployees } from "../actions/employeeActions";
 import Loading from "./loading";
+import { Table } from "@mantine/core";
 
 const Record = () => {
   const navigate = useNavigate();
@@ -52,10 +53,10 @@ const Record = () => {
           </button>
         </div>
 
-        <div className="overflow-x-auto md:overflow-visible w-full">
-          <table className="border-collapse w-full shadow border border-slate-500">
+        <div className="overflow-x-auto md:overflow-visible w-full px-4">
+          <Table className="border-collapse w-full shadow border border-slate-500" striped highlightOnHover withBorder withColumnBorders>
             <thead>
-              <tr className="text-sm md:text-lg text-white bg-primary text-left">
+              <tr className="">
                 <th>Name</th>
                 <th>Employee Id</th>
                 <th>Role</th>
@@ -76,7 +77,6 @@ const Record = () => {
                 employees.map((employee, index) => (
                   <tr
                     key={index}
-                    className="odd:bg-white even:bg-gray hover:bg-primary-light text-md align-middle"
                   >
                     <td className="flex items-center w-20">
                       <img
@@ -114,7 +114,7 @@ const Record = () => {
                 ))
               )}
             </tbody>
-          </table>
+          </Table>
         </div>
       </main>
     </div>

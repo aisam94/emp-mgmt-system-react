@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { listRoles, deleteRole } from "../actions/rolesActions";
 import { addRole } from "../actions/rolesActions";
 import Loading from "../components/loading";
+import { Table } from "@mantine/core";
 
 const Roles = () => {
   const navigate = useNavigate();
@@ -67,9 +68,9 @@ const Roles = () => {
           </button>
         </form>
 
-        <table className="border-collapse shadow w-2/3 md:w-1/2">
+        <Table className="border-collapse shadow w-2/3 md:w-1/2" striped highlightOnHover withBorder withColumnBorders>
           <thead>
-            <tr className="text-sm md:text-lg text-white bg-primary">
+            <tr className="" bgcolor=''>
               <th>Roles Name</th>
               <th className="text-center">Action</th>
             </tr>
@@ -86,7 +87,6 @@ const Roles = () => {
               roles.map((role, index) => (
                 <tr
                   key={index}
-                  className="odd:bg-white even:bg-gray hover:bg-primary-light text-md"
                 >
                   <td className="text-center">{role.name}</td>
                   <td className="flex justify-around items-center ">
@@ -111,7 +111,7 @@ const Roles = () => {
               ))
             )}
           </tbody>
-        </table>
+        </Table>
       </main>
     </div>
   );
