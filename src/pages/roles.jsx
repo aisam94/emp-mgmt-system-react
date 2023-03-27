@@ -37,7 +37,6 @@ const Roles = () => {
 
   function handleRoleEdit(role) {
     setCurrentRole(role);
-    console.log(role);
     open();
   }
 
@@ -60,7 +59,7 @@ const Roles = () => {
         title="Update role"
         position="right"
       >
-        <UpdateRole role={currentRole} />
+        <UpdateRole role={currentRole} setIsSubmit={setIsSubmit} />
       </Drawer>
 
       <main className="flex flex-col items-center">
