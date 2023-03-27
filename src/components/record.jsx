@@ -4,6 +4,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { deleteEmployee, listEmployees } from "../actions/employeeActions";
 import Loading from "./loading";
 import { Table } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { Drawer, Button } from "@mantine/core";
+import UpdateEmployee from "./updateEmployee";
 
 const Record = () => {
   const navigate = useNavigate();
@@ -12,6 +15,9 @@ const Record = () => {
   const { loading, error, employees } = employeesList;
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const [opened, { open, close }] = useDisclosure(false);
+  const [currentEmployee, setCurrentEmployee] = useState();
 
   const [isRefresh, setIsRefresh] = useState(false);
 
@@ -30,6 +36,11 @@ const Record = () => {
     setIsRefresh(true);
   }
 
+  function handleUpdateEmployee(employee) {
+    setCurrentEmployee(employee);
+    open();
+  }
+
   useEffect(() => {
     dispatch(listEmployees());
     setIsRefresh(false);
@@ -37,6 +48,15 @@ const Record = () => {
 
   return (
     <div className="mb-12">
+      <Drawer
+        opened={opened}
+        onClose={close}
+        title={"Update employee's detail"}
+        position="right"
+      >
+        <UpdateEmployee employee={currentEmployee} />
+      </Drawer>
+
       <main className="flex flex-col items-center">
         <h2 className="text-center text-base md:text-lg font-bold mt-4">
           Employee Records
@@ -48,13 +68,19 @@ const Record = () => {
               navigate("/addemployee");
             }}
           >
-            <img className="h-5 w-5" src="/icons/plus.svg"/>
+            <img className="h-5 w-5" src="/icons/plus.svg" />
             <span>Add Employee</span>
           </button>
         </div>
 
         <div className="overflow-x-auto md:overflow-visible w-full px-4">
-          <Table className="border-collapse w-full shadow border border-slate-500" striped highlightOnHover withBorder withColumnBorders>
+          <Table
+            className="border-collapse w-full shadow border border-slate-500"
+            striped
+            highlightOnHover
+            withBorder
+            withColumnBorders
+          >
             <thead>
               <tr className="">
                 <th>Name</th>
@@ -75,9 +101,7 @@ const Record = () => {
                 </tr>
               ) : (
                 employees.map((employee, index) => (
-                  <tr
-                    key={index}
-                  >
+                  <tr key={index} className="cursor-pointer" onClick={e => handleUpdateEmployee(employee)}>
                     <td className="flex items-center w-20">
                       <img
                         src={employee.pictureUrl}
@@ -93,12 +117,15 @@ const Record = () => {
                     <td className="">
                       <div className="flex">
                         {/* Edit */}
-                        <NavLink
+                        <Button
                           className="flex items-center justify-center bg-secondary hover:bg-secondary-focus text-white w-1/2 font-normal text-center"
-                          to={`/editemployee/${employee._id}`}
+                          onClick={(e) => handleUpdateEmployee(employee)}
                         >
-                          <img className="h-5 w-5" src="/icons/edit-pencil.svg"/>
-                        </NavLink>
+                          <img
+                            className="h-5 w-5"
+                            src="/icons/edit-pencil.svg"
+                          />
+                        </Button>
                         {/* Delete */}
                         <button
                           className="flex items-center justify-center bg-red hover:bg-red-focus text-white w-1/2 "
@@ -106,7 +133,7 @@ const Record = () => {
                             deleteItem(employee);
                           }}
                         >
-                          <img className="h-5 w-5" src="/icons/cross.svg"/>
+                          <img className="h-5 w-5" src="/icons/cross.svg" />
                         </button>
                       </div>
                     </td>

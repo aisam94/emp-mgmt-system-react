@@ -7,7 +7,6 @@ import Register from "./pages/register";
 import About from "./pages/about";
 import Record from "./components/record";
 import AddEmployee from "./pages/addEmployee";
-import EditEmployee from "./pages/editEmployee";
 import Department from "./pages/department";
 import AddDepartment from "./pages/addDepartment";
 import EditDepartment from "./pages/editDepartment";
@@ -40,7 +39,6 @@ const App = () => {
 
           <Route exact path="/record" element={<Record />} />
           <Route exact path="/addemployee" element={<AddEmployee />} />
-          <Route exact path="/editemployee/:id" element={<EditEmployee />} />
         </Route>
       </Routes>
     </>
