@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { listRoles, deleteRole } from "../actions/rolesActions";
 import { addRole } from "../actions/rolesActions";
 import Loading from "../components/loading";
 import { Table } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { Drawer, Button } from "@mantine/core";
+import UpdateRole from "./updateRole";
 
 const Roles = () => {
   const navigate = useNavigate();
@@ -17,15 +20,25 @@ const Roles = () => {
   const [roleInput, setRoleInput] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
 
+  const [opened, { open, close }] = useDisclosure(false);
+  const [currentRole, setCurrentRole] = useState();
+
   const change = (event) => {
     setRoleInput(event.target.value);
   };
 
   async function submit(event) {
     event.preventDefault();
+    if (roleInput.trim() === "") return;
     await dispatch(addRole({ name: roleInput }));
     setRoleInput("");
     setIsSubmit(true);
+  }
+
+  function handleRoleEdit(role) {
+    setCurrentRole(role);
+    console.log(role);
+    open();
   }
 
   async function deleteItem(role) {
@@ -41,6 +54,15 @@ const Roles = () => {
 
   return (
     <div className="mb-12">
+      <Drawer
+        opened={opened}
+        onClose={close}
+        title="Update role"
+        position="right"
+      >
+        <UpdateRole role={currentRole} />
+      </Drawer>
+
       <main className="flex flex-col items-center">
         <h2 className="text-center text-base md:text-lg font-bold mt-4">
           Roles List
@@ -68,10 +90,16 @@ const Roles = () => {
           </button>
         </form>
 
-        <Table className="border-collapse shadow w-2/3 md:w-1/2" striped highlightOnHover withBorder withColumnBorders>
+        <Table
+          className="border-collapse shadow w-2/3 md:w-1/2"
+          striped
+          highlightOnHover
+          withBorder
+          withColumnBorders
+        >
           <thead>
-            <tr className="" bgcolor=''>
-              <th>Roles Name</th>
+            <tr className="" bgcolor="">
+              <th>Roles</th>
               <th className="text-center">Action</th>
             </tr>
           </thead>
@@ -85,27 +113,25 @@ const Roles = () => {
               </tr>
             ) : (
               roles.map((role, index) => (
-                <tr
-                  key={index}
-                >
-                  <td className="text-center">{role.name}</td>
+                <tr key={index}>
+                  <td
+                    className="text-center cursor-pointer"
+                    onClick={(e) => handleRoleEdit(role)}
+                  >
+                    {role.name}
+                  </td>
                   <td className="flex justify-around items-center ">
                     {/* Edit */}
-                    <NavLink
-                      className="flex items-center justify-center bg-secondary text-white w-1/2 font-normal hover:bg-secondary-focus text-center"
-                      to={`/editrole/${role._id}`}
-                    >
-                      <img className="h-5 w-5" src="/icons/edit-pencil.svg" />
-                    </NavLink>
+
                     {/* Delete */}
-                    <button
-                      className="flex items-center justify-center bg-red text-white w-1/2 font-normal hover:bg-red-focus"
+                    <Button
+                      className="flex items-center justify-center bg-red text-white w-full hover:bg-red-focus"
                       onClick={() => {
                         deleteItem(role);
                       }}
                     >
                       <img className="h-5 w-5" src="/icons/cross.svg" />
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))
