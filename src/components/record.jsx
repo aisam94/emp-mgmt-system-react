@@ -102,7 +102,7 @@ const Record = () => {
               ) : (
                 employees.map((employee, index) => (
                   <tr key={index} className="cursor-pointer" onClick={e => handleUpdateEmployee(employee)}>
-                    <td className="flex items-center w-20">
+                    <td className="flex items-center">
                       <img
                         src={employee.pictureUrl}
                         className="h-2 w-2 mx-1 md:h-10 md:w-10 md:mx-3"
