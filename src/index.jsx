@@ -6,12 +6,15 @@ import "./index.css";
 // import { MainContextProvider } from "./utils/maincontext";
 import { Provider } from "react-redux";
 import store from "./store";
+import { MantineProvider } from "@mantine/core";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <MantineProvider>
+          <App />
+        </MantineProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
