@@ -7,6 +7,9 @@ import {
 } from "../actions/departmentActions";
 import Loading from "../components/loading";
 import { Table, Text } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { Drawer } from "@mantine/core";
+import UpdateDepartment from "../components/updateDepartment";
 
 const Department = () => {
   const navigate = useNavigate();
@@ -16,7 +19,15 @@ const Department = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const [currentDepartment, setCurrentDepartment] = useState();
+  const [opened, { open, close }] = useDisclosure(false);
+
   const [isRefresh, setIsRefresh] = useState(false);
+
+  function handleUpdateDepartment(department) {
+    setCurrentDepartment(department);
+    open();
+  }
 
   async function deleteItem(department) {
     await dispatch(deleteDepartment(department._id));
@@ -30,6 +41,17 @@ const Department = () => {
 
   return (
     <div className="mb-12">
+      <Drawer
+        opened={opened}
+        onClose={close}
+        title="Update Department"
+        position="right"
+      >
+        <UpdateDepartment
+          department={currentDepartment}
+          setIsRefresh={setIsRefresh}
+        />
+      </Drawer>
       <main className="flex flex-col items-center">
         <h2 className="text-center text-base md:text-lg font-bold mt-4">
           Department List
@@ -41,13 +63,19 @@ const Department = () => {
               navigate("/adddepartment");
             }}
           >
-            <img className="h-5 w-5" src="/icons/plus.svg"/>
+            <img className="h-5 w-5" src="/icons/plus.svg" />
             <span>Add Department</span>
           </button>
         </div>
 
         <div className="w-full overflow-x-auto px-4">
-          <Table className="" striped highlightOnHover withBorder withColumnBorders>
+          <Table
+            className=""
+            striped
+            highlightOnHover
+            withBorder
+            withColumnBorders
+          >
             <thead>
               <tr>
                 <th>Department</th>
@@ -67,6 +95,8 @@ const Department = () => {
                 departments.map((department, index) => (
                   <tr
                     key={index}
+                    className="cursor-pointer"
+                    onClick={(e) => handleUpdateDepartment(department)}
                   >
                     <td className="flex items-center">
                       <span>{department.name}</span>
@@ -79,7 +109,10 @@ const Department = () => {
                           className="flex items-center justify-center bg-secondary text-white w-1/2 font-normal hover:bg-secondary-focus text-center"
                           to={`/editdepartment/${department._id}`}
                         >
-                          <img className="h-5 w-5" src="/icons/edit-pencil.svg"/>
+                          <img
+                            className="h-5 w-5"
+                            src="/icons/edit-pencil.svg"
+                          />
                         </NavLink>
                         {/* Delete */}
                         <button
@@ -88,7 +121,7 @@ const Department = () => {
                             deleteItem(department);
                           }}
                         >
-                          <img className="h-5 w-5" src="/icons/cross.svg"/>
+                          <img className="h-5 w-5" src="/icons/cross.svg" />
                         </button>
                       </div>
                     </td>
