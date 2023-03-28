@@ -57,6 +57,7 @@ const Record = () => {
         <UpdateEmployee
           employee={currentEmployee}
           setIsRefresh={setIsRefresh}
+          deleteItem={deleteItem}
         />
       </Drawer>
 
@@ -92,7 +93,6 @@ const Record = () => {
                 <th>Department</th>
                 <th>Age</th>
                 <th>Email</th>
-                <th>Action</th>
               </tr>
             </thead>
             <tbody className="text-sm md:text-base">
@@ -121,29 +121,6 @@ const Record = () => {
                     <td>{employee.department.name}</td>
                     <td>{employee.age}</td>
                     <td>{employee.email}</td>
-                    <td className="">
-                      <div className="flex">
-                        {/* Edit */}
-                        <Button
-                          className="flex items-center justify-center bg-secondary hover:bg-secondary-focus text-white w-1/2 font-normal text-center"
-                          onClick={(e) => handleUpdateEmployee(employee)}
-                        >
-                          <img
-                            className="h-5 w-5"
-                            src="/icons/edit-pencil.svg"
-                          />
-                        </Button>
-                        {/* Delete */}
-                        <button
-                          className="flex items-center justify-center bg-red hover:bg-red-focus text-white w-1/2 "
-                          onClick={() => {
-                            deleteItem(employee);
-                          }}
-                        >
-                          <img className="h-5 w-5" src="/icons/cross.svg" />
-                        </button>
-                      </div>
-                    </td>
                   </tr>
                 ))
               )}

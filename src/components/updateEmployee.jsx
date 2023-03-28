@@ -3,7 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { editEmployee } from "../actions/employeeActions";
 import { listDepartments } from "../actions/departmentActions";
 import { listRoles } from "../actions/rolesActions";
-import { FileInput, NumberInput, Select, TextInput } from "@mantine/core";
+import {
+  Button,
+  FileInput,
+  NumberInput,
+  Select,
+  TextInput,
+} from "@mantine/core";
 
 const parseRoles = (roles) => {
   let arr = [];
@@ -15,7 +21,7 @@ const parseRoles = (roles) => {
   return arr;
 };
 
-const UpdateEmployee = ({ employee, setIsRefresh }) => {
+const UpdateEmployee = ({ employee, setIsRefresh, deleteItem }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: employee.name,
@@ -62,6 +68,10 @@ const UpdateEmployee = ({ employee, setIsRefresh }) => {
       })
     );
     setIsRefresh(true);
+  }
+
+  function handleDelete() {
+    deleteItem(employee);
   }
 
   useEffect(() => {
@@ -149,8 +159,14 @@ const UpdateEmployee = ({ employee, setIsRefresh }) => {
       <input
         type="submit"
         value="UPDATE"
-        className="py-2 text-white bg-secondary  hover:bg-secondary-focus cursor-pointer"
+        className="py-2 rounded text-white font-bold bg-secondary  hover:bg-secondary-focus cursor-pointer"
       />
+      <div className="flex w-full px-1 mb-2 mt-8 justify-between items-center">
+        <span className="text-red">Delete this employee?</span>
+        <Button className="bg-red" color="red" uppercase onClick={handleDelete}>
+          Delete
+        </Button>
+      </div>
     </form>
   );
 };
