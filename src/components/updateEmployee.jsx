@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editEmployee } from "../actions/employeeActions";
 import { listDepartments } from "../actions/departmentActions";
 import { listRoles } from "../actions/rolesActions";
+import { FileInput, NumberInput, Select, TextInput } from "@mantine/core";
 
 const parseRoles = (roles) => {
   let arr = [];
@@ -16,7 +17,6 @@ const parseRoles = (roles) => {
 
 const UpdateEmployee = ({ employee }) => {
   const dispatch = useDispatch();
-//   const [currentEmployee, setCurrentEmployee] = useState(employee);
   const [formData, setFormData] = useState({
     name: employee.name,
     email: employee.email,
@@ -42,6 +42,11 @@ const UpdateEmployee = ({ employee }) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  // temp solution
+  const changeDept = (dept) => {
+    setFormData({ ...formData, department: dept });
+  };
+
   const submit = (event) => {
     event.preventDefault();
     dispatch(
@@ -58,24 +63,24 @@ const UpdateEmployee = ({ employee }) => {
     );
   };
 
-//   const changeRole = (event) => {
-//     switch (event.target.name) {
-//       case "role1":
-//         role[0] = event.target.value;
-//         setFormData({ ...formData, [role]: role });
-//         break;
-//       case "role2":
-//         role[1] = event.target.value;
-//         setFormData({ ...formData, [role]: role });
-//         break;
-//       case "role3":
-//         role[2] = event.target.value;
-//         setFormData({ ...formData, [role]: role });
-//         break;
-//       default:
-//         console.log("Error inserting roles.");
-//     }
-//   };
+  //   const changeRole = (event) => {
+  //     switch (event.target.name) {
+  //       case "role1":
+  //         role[0] = event.target.value;
+  //         setFormData({ ...formData, [role]: role });
+  //         break;
+  //       case "role2":
+  //         role[1] = event.target.value;
+  //         setFormData({ ...formData, [role]: role });
+  //         break;
+  //       case "role3":
+  //         role[2] = event.target.value;
+  //         setFormData({ ...formData, [role]: role });
+  //         break;
+  //       default:
+  //         console.log("Error inserting roles.");
+  //     }
+  //   };
 
   useEffect(() => {
     dispatch(listRoles());
@@ -85,46 +90,36 @@ const UpdateEmployee = ({ employee }) => {
   return (
     <form className="flex flex-col" onSubmit={(event) => submit(event)}>
       {/*Input Form*/}
-      <div className="flex flex-col space-y-2 mb-5">
+      <div className="flex flex-col space-y-4 mb-5">
         {/*Name*/}
-        <div className="flex flex-col">
-          <span className="text-gray">Name</span>
-          <input
-            type="text"
-            name="name"
-            value={name}
-            className="px-2 py-1 border border-gray appearance-none focus:outline-none focus:border-primary shadow"
-            onChange={(e) => change(e)}
-            required
-          />
-        </div>
-
+        <TextInput
+          label="Name"
+          name="name"
+          value={name}
+          onChange={change}
+          withAsterisk
+          required
+        />
         {/*Email*/}
-        <div className="flex flex-col">
-          <span className="text-gray">Email</span>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            className="px-2 py-1 border border-gray appearance-none focus:outline-none focus:border-primary shadow"
-            onChange={(e) => change(e)}
-            required
-          />
-        </div>
-
+        <TextInput
+          label="Email"
+          type="email"
+          name="email"
+          value={email}
+          onChange={(e) => change(e)}
+          withAsterisk
+          required
+        />
         {/*Employee Id*/}
-        <div className="flex flex-col">
-          <span className="text-gray">Employee ID</span>
-          <input
-            type="number"
-            name="employeeId"
-            value={employeeId}
-            className="px-2 py-1 border border-gray appearance-none focus:outline-none focus:border-primary shadow"
-            onChange={(e) => change(e)}
-            required
-          />
-        </div>
-
+        <NumberInput
+          label="Employee ID"
+          name="employeeId"
+          value={employeeId}
+          onChange={change}
+          hideControls
+          withAsterisk
+          required
+        />
         {/*Role*/}
 
         {/* <div className="flex flex-col">
@@ -174,66 +169,50 @@ const UpdateEmployee = ({ employee }) => {
 
         {/*Department*/}
 
-        <div className="flex flex-col">
-          <span className="text-gray">Department</span>
-          <select
-            className="px-2 py-1 border border-gray appearance-none bg-white text-black focus:outline-none focus:border-primary shadow"
-            onChange={(e) => change(e)}
-            name="department"
-          >
-            <option value={department}>-- {department} --</option>
-            {departments.map((department, index) => (
-              <option key={index} value={department.name}>
-                {department.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Select
+          label="Department"
+          name="department"
+          placeholder="Pick a department"
+          value={department}
+          onChange={changeDept}
+          data={departments.map((dept) => {
+            return { value: dept.name, label: dept.name };
+          })}
+        />
 
         {/*Age*/}
-        <div className="flex flex-col">
-          <span className="text-gray">Age</span>
-          <input
-            type="number"
-            placeholder="Age"
-            name="age"
-            value={age}
-            className="px-2 py-1 border border-gray appearance-none focus:outline-none focus:border-primary shadow"
-            onChange={(event) => change(event)}
-            required
-          />
-        </div>
+        <NumberInput
+          label="Age"
+          placeholder="Age"
+          name="age"
+          value={age}
+          onChange={change}
+          withAsterisk
+          required
+        />
 
         {/* Picture */}
-        <div className="flex flex-col space-y-1 ">
-          <label htmlFor="file" className="text-gray">
-            Profile picture
-          </label>
-          <input
-            type="file"
-            id="file"
-            placeholder="Picture"
-            name="picture"
-            accept="image/png, image/jpeg"
-            className="px-2 py-1 border border-gray appearance-none focus:outline-none focus:border-primary shadow"
-          />
-          <span className="text-gray">Or</span>
-          <input
-            type="text"
-            placeholder="Picture URL"
-            name="pictureUrl"
-            value={pictureUrl}
-            className="px-2 py-1 border border-gray appearance-none focus:outline-none focus:border-primary shadow"
-            onChange={(e) => change(e)}
-          />
-        </div>
+        <FileInput
+          label="Profile picture"
+          id="file"
+          placeholder="Upload picture"
+          name="picture"
+          accept="image/png, image/jpeg"
+        />
+        <span className="text-xs">Or</span>
+        <TextInput
+          placeholder="Insert picture URL"
+          name="pictureUrl"
+          value={pictureUrl}
+          onChange={change}
+        />
       </div>
 
       {/* Update button */}
       <input
         type="submit"
         value="UPDATE"
-        className="py-2 text-white bg-secondary  hover:bg-secondary-focus"
+        className="py-2 text-white bg-secondary  hover:bg-secondary-focus cursor-pointer"
       />
     </form>
   );
