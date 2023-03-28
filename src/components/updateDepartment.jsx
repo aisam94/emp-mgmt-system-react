@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { editDepartment } from "../actions/departmentActions";
 import { useDispatch } from "react-redux";
+import { FileInput, TextInput, Textarea } from "@mantine/core";
 
 const UpdateDepartment = ({ department, setIsRefresh }) => {
   const dispatch = useDispatch();
@@ -33,51 +34,42 @@ const UpdateDepartment = ({ department, setIsRefresh }) => {
   return (
     <form className="flex flex-col" onSubmit={submit}>
       {/*Input Form*/}
-      <div className="flex flex-col space-y-8 mb-5">
+      <div className="flex flex-col space-y-2">
         {/*Name*/}
-        <input
-          type="text"
+        <TextInput
+          label="Name"
           placeholder="Name"
           name="name"
           value={name}
-          className="px-2 py-1 border border-gray appearance-none focus:outline-none focus:border-primary shadow"
           onChange={change}
+          withAsterisk
           required
         />
 
         {/*Description*/}
-        <textarea
-          type="text"
+        <Textarea
+          label="Description"
           placeholder="Description"
           name="description"
           value={description}
-          rows="10"
-          cols="40"
-          className="w-full px-2 py-1 border border-gray appearance-none focus:outline-none focus:border-primary shadow"
-          onChange={(e) => change(e)}
+          minRows={5}
+          onChange={change}
         />
-      </div>
 
-      {/* Picture */}
-
-      <div className="flex flex-col space-y-1 ">
-        <label htmlFor="file">Profile picture</label>
-        <input
-          type="file"
+        {/* Picture */}
+        <FileInput
+          label="Profile picture"
           id="file"
-          placeholder="Picture"
+          placeholder="Upload picture"
           name="picture"
           accept="image/png, image/jpeg"
-          className="px-2 py-1 border border-gray appearance-none focus:outline-none focus:border-primary shadow"
         />
-        <span>Or</span>
-        <input
-          type="text"
-          placeholder="Picture URL"
+        <span className="text-xs">Or</span>
+        <TextInput
+          placeholder="Insert picture URL"
           name="pictureUrl"
           value={pictureUrl}
-          className="px-2 py-1 border border-gray appearance-none focus:outline-none focus:border-primary shadow"
-          onChange={(e) => change(e)}
+          onChange={change}
         />
       </div>
 
@@ -85,7 +77,7 @@ const UpdateDepartment = ({ department, setIsRefresh }) => {
       <input
         type="submit"
         value="UPDATE"
-        className="my-2 py-2 text-white bg-secondary  hover:bg-secondary-focus"
+        className="my-2 py-2 text-white bg-secondary  hover:bg-secondary-focus cursor-pointer"
       />
     </form>
   );
