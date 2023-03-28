@@ -54,7 +54,10 @@ const Record = () => {
         title={"Update employee's detail"}
         position="right"
       >
-        <UpdateEmployee employee={currentEmployee} />
+        <UpdateEmployee
+          employee={currentEmployee}
+          setIsRefresh={setIsRefresh}
+        />
       </Drawer>
 
       <main className="flex flex-col items-center">
@@ -101,7 +104,11 @@ const Record = () => {
                 </tr>
               ) : (
                 employees.map((employee, index) => (
-                  <tr key={index} className="cursor-pointer" onClick={e => handleUpdateEmployee(employee)}>
+                  <tr
+                    key={index}
+                    className="cursor-pointer"
+                    onClick={(e) => handleUpdateEmployee(employee)}
+                  >
                     <td className="flex items-center">
                       <img
                         src={employee.pictureUrl}

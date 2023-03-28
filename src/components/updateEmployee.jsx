@@ -15,7 +15,7 @@ const parseRoles = (roles) => {
   return arr;
 };
 
-const UpdateEmployee = ({ employee }) => {
+const UpdateEmployee = ({ employee, setIsRefresh }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: employee.name,
@@ -43,11 +43,11 @@ const UpdateEmployee = ({ employee }) => {
   };
 
   // temp solution
-  const changeDept = (dept) => {
-    setFormData({ ...formData, department: dept });
+  const changeValue = (name, value) => {
+    setFormData({ ...formData, [name]: value });
   };
 
-  const submit = (event) => {
+  function submit(event) {
     event.preventDefault();
     dispatch(
       editEmployee({
@@ -61,26 +61,8 @@ const UpdateEmployee = ({ employee }) => {
         id: employee._id,
       })
     );
-  };
-
-  //   const changeRole = (event) => {
-  //     switch (event.target.name) {
-  //       case "role1":
-  //         role[0] = event.target.value;
-  //         setFormData({ ...formData, [role]: role });
-  //         break;
-  //       case "role2":
-  //         role[1] = event.target.value;
-  //         setFormData({ ...formData, [role]: role });
-  //         break;
-  //       case "role3":
-  //         role[2] = event.target.value;
-  //         setFormData({ ...formData, [role]: role });
-  //         break;
-  //       default:
-  //         console.log("Error inserting roles.");
-  //     }
-  //   };
+    setIsRefresh(true);
+  }
 
   useEffect(() => {
     dispatch(listRoles());
@@ -115,57 +97,12 @@ const UpdateEmployee = ({ employee }) => {
           label="Employee ID"
           name="employeeId"
           value={employeeId}
-          onChange={change}
+          onChange={(e) => changeValue("employeeId", e)}
           hideControls
           withAsterisk
           required
         />
         {/*Role*/}
-
-        {/* <div className="flex flex-col">
-          <span className="text-gray">Roles (Max 3 roles)</span>
-          <select
-            className="px-2 py-1 border border-gray appearance-none bg-white text-black focus:outline-none focus:border-primary shadow"
-            onChange={(e) => changeRole(e)}
-            name="role1"
-          >
-            <option value={role[0]}>-- {role[0]} --</option>
-            <option value="">None</option>
-            {roles.map((role, index) => (
-              <option key={index} value={role.name}>
-                {role.name}
-              </option>
-            ))}
-          </select>
-
-          <select
-            className="px-2 py-1 border border-gray appearance-none bg-white text-black focus:outline-none focus:border-primary shadow"
-            onChange={(e) => changeRole(e)}
-            name="role2"
-          >
-            <option value={role[1]}>-- {role[1]} --</option>
-            <option value="">None</option>
-            {roles.map((role, index) => (
-              <option key={index} value={role.name}>
-                {role.name}
-              </option>
-            ))}
-          </select>
-
-          <select
-            className="px-2 py-1 border border-gray appearance-none bg-white text-black focus:outline-none focus:border-primary shadow"
-            onChange={(e) => changeRole(e)}
-            name="role3"
-          >
-            <option value={role[2]}>-- {role[2]} --</option>
-            <option value="">None</option>
-            {roles.map((role, index) => (
-              <option key={index} value={role.name}>
-                {role.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
 
         {/*Department*/}
 
@@ -174,7 +111,7 @@ const UpdateEmployee = ({ employee }) => {
           name="department"
           placeholder="Pick a department"
           value={department}
-          onChange={changeDept}
+          onChange={(e) => changeValue("department", e)}
           data={departments.map((dept) => {
             return { value: dept.name, label: dept.name };
           })}
@@ -186,7 +123,7 @@ const UpdateEmployee = ({ employee }) => {
           placeholder="Age"
           name="age"
           value={age}
-          onChange={change}
+          onChange={(e) => changeValue("age", e)}
           withAsterisk
           required
         />
