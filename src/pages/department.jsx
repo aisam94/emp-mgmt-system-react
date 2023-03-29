@@ -50,6 +50,7 @@ const Department = () => {
         <UpdateDepartment
           department={currentDepartment}
           setIsRefresh={setIsRefresh}
+          deleteItem={deleteItem}
         />
       </Drawer>
       <main className="flex flex-col items-center">
@@ -80,7 +81,6 @@ const Department = () => {
               <tr>
                 <th>Department</th>
                 <th>Description</th>
-                <th>Action</th>
               </tr>
             </thead>
 
@@ -102,29 +102,6 @@ const Department = () => {
                       <span>{department.name}</span>
                     </td>
                     <td>{department.description}</td>
-                    <td className="">
-                      <div className="flex w-full h-full">
-                        {/* Edit */}
-                        <NavLink
-                          className="flex items-center justify-center bg-secondary text-white w-1/2 font-normal hover:bg-secondary-focus text-center"
-                          to={`/editdepartment/${department._id}`}
-                        >
-                          <img
-                            className="h-5 w-5"
-                            src="/icons/edit-pencil.svg"
-                          />
-                        </NavLink>
-                        {/* Delete */}
-                        <button
-                          className="flex items-center justify-center bg-red text-white w-1/2 font-normal hover:bg-red-focus"
-                          onClick={() => {
-                            deleteItem(department);
-                          }}
-                        >
-                          <img className="h-5 w-5" src="/icons/cross.svg" />
-                        </button>
-                      </div>
-                    </td>
                   </tr>
                 ))
               )}

@@ -161,6 +161,8 @@ const UpdateEmployee = ({ employee, setIsRefresh, deleteItem }) => {
         value="UPDATE"
         className="py-2 rounded text-white font-bold bg-secondary  hover:bg-secondary-focus cursor-pointer"
       />
+
+      {/* Delete button */}
       <div className="flex w-full px-1 mb-2 mt-8 justify-between items-center">
         <span className="text-red">Delete this employee?</span>
         <Button className="bg-red" color="red" uppercase onClick={handleDelete}>

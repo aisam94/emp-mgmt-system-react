@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { editDepartment } from "../actions/departmentActions";
 import { useDispatch } from "react-redux";
-import { FileInput, TextInput, Textarea } from "@mantine/core";
+import { Button, FileInput, TextInput, Textarea } from "@mantine/core";
 
-const UpdateDepartment = ({ department, setIsRefresh }) => {
+const UpdateDepartment = ({ department, setIsRefresh, deleteItem }) => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -29,6 +29,10 @@ const UpdateDepartment = ({ department, setIsRefresh }) => {
       })
     );
     setIsRefresh(true);
+  }
+
+  function handleDelete() {
+    deleteItem(department);
   }
 
   return (
@@ -79,6 +83,14 @@ const UpdateDepartment = ({ department, setIsRefresh }) => {
         value="UPDATE"
         className="my-2 py-2 text-white bg-secondary  hover:bg-secondary-focus cursor-pointer"
       />
+
+      {/* Delete button */}
+      <div className="flex w-full px-1 mb-2 mt-8 justify-between items-center">
+        <span className="text-red">Delete this department?</span>
+        <Button className="bg-red" color="red" uppercase onClick={handleDelete}>
+          Delete
+        </Button>
+      </div>
     </form>
   );
 };
