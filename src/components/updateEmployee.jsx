@@ -6,6 +6,7 @@ import { listRoles } from "../actions/rolesActions";
 import {
   Button,
   FileInput,
+  MultiSelect,
   NumberInput,
   Select,
   TextInput,
@@ -13,7 +14,7 @@ import {
 
 const parseRoles = (roles) => {
   let arr = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < roles.length; i++) {
     if (roles[i]) {
       arr.push(roles[i].name);
     }
@@ -112,7 +113,18 @@ const UpdateEmployee = ({ employee, setIsRefresh, deleteItem }) => {
           withAsterisk
           required
         />
+
         {/*Role*/}
+
+        <MultiSelect
+          label="Job Title"
+          placeholder="Pick job titles"
+          value={role}
+          data={roles.map((role) => {
+            return { value: role.name, label: role.name };
+          })}
+          onChange={(e) => changeValue("role", e)}
+        />
 
         {/*Department*/}
 

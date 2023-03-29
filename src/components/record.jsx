@@ -22,12 +22,14 @@ const Record = () => {
   const [isRefresh, setIsRefresh] = useState(false);
 
   const parseRole = (roles) => {
+    const allowedRoleToShow = 3;
     let arr = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < allowedRoleToShow; i++) {
       if (roles[i]) {
         arr.push(roles[i].name);
       }
     }
+    if (roles.length > allowedRoleToShow) arr.push(" ...");
     return arr.filter(Boolean).join();
   };
 
