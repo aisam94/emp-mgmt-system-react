@@ -54,9 +54,9 @@ const UpdateEmployee = ({ employee, setIsRefresh, deleteItem }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
-    dispatch(
+    await dispatch(
       editEmployee({
         name,
         email,

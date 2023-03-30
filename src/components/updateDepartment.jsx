@@ -18,9 +18,9 @@ const UpdateDepartment = ({ department, setIsRefresh, deleteItem }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
-    dispatch(
+    await dispatch(
       editDepartment({
         name,
         description,
