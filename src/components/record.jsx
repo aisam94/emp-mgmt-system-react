@@ -83,7 +83,7 @@ const Record = () => {
         title={"Add an employee"}
         position="right"
       >
-        <AddEmployee />
+        <AddEmployee setIsRefresh={setIsRefresh} />
       </Drawer>
 
       <main className="flex flex-col items-center">

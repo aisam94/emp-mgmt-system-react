@@ -11,7 +11,7 @@ import {
   TextInput,
 } from "@mantine/core";
 
-const AddEmployee = () => {
+const AddEmployee = ({setIsRefresh}) => {
   const dispatch = useDispatch();
 
   const initialState = {
@@ -44,9 +44,9 @@ const AddEmployee = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const submit = (event) => {
+  async function submit(event) {
     event.preventDefault();
-    dispatch(
+    await dispatch(
       addEmployee({
         name,
         email,
@@ -58,7 +58,8 @@ const AddEmployee = () => {
       })
     );
     setFormData(initialState);
-  };
+    setIsRefresh(true);
+  }
 
   useEffect(() => {
     dispatch(listRoles());
