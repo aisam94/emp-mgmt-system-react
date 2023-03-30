@@ -87,6 +87,7 @@ const UpdateEmployee = ({ employee, setIsRefresh, deleteItem }) => {
         {/*Name*/}
         <TextInput
           label="Name"
+          placeholder="Input name"
           name="name"
           value={name}
           onChange={change}
@@ -96,6 +97,7 @@ const UpdateEmployee = ({ employee, setIsRefresh, deleteItem }) => {
         {/*Email*/}
         <TextInput
           label="Email"
+          placeholder="Input email"
           type="email"
           name="email"
           value={email}
@@ -106,6 +108,7 @@ const UpdateEmployee = ({ employee, setIsRefresh, deleteItem }) => {
         {/*Employee Id*/}
         <NumberInput
           label="Employee ID"
+          placeholder="Input employee's ID"
           name="employeeId"
           value={employeeId}
           onChange={(e) => changeValue("employeeId", e)}
