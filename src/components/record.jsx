@@ -41,7 +41,6 @@ const Record = () => {
 
   function handleUpdateEmployee(employee) {
     setCurrentEmployee(employee);
-    // open();
     setIsUpdateDrawerOpen(true);
   }
 

@@ -1,37 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
 import {
   listDepartments,
   deleteDepartment,
 } from "../actions/departmentActions";
 import Loading from "../components/loading";
-import { Table, Text } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Table } from "@mantine/core";
 import { Drawer } from "@mantine/core";
 import UpdateDepartment from "../components/updateDepartment";
+import AddDepartment from "./addDepartment";
 
 const Department = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const departmentList = useSelector((state) => state.departmentList);
   const { loading, error, departments } = departmentList;
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const [isUpdateDrawerOpen, setIsUpdateDrawerOpen] = useState(false);
+  const [isAddDrawerOpen, setIsAddDrawerOpen] = useState(false);
+
   const [currentDepartment, setCurrentDepartment] = useState();
-  const [opened, { open, close }] = useDisclosure(false);
 
   const [isRefresh, setIsRefresh] = useState(false);
 
   function handleUpdateDepartment(department) {
     setCurrentDepartment(department);
-    open();
+    setIsUpdateDrawerOpen(true);
   }
 
   async function deleteItem(department) {
     await dispatch(deleteDepartment(department._id));
     setIsRefresh(true);
+  }
+
+  function handleAddDepartment() {
+    setIsAddDrawerOpen(true);
+  }
+
+  function closeUpdateDrawer() {
+    setIsUpdateDrawerOpen(false);
+  }
+
+  function closeAddDrawer() {
+    setIsAddDrawerOpen(false);
   }
 
   useEffect(() => {
@@ -42,8 +54,8 @@ const Department = () => {
   return (
     <div className="mb-12">
       <Drawer
-        opened={opened}
-        onClose={close}
+        opened={isUpdateDrawerOpen}
+        onClose={closeUpdateDrawer}
         title="Update Department"
         position="right"
       >
@@ -53,6 +65,16 @@ const Department = () => {
           deleteItem={deleteItem}
         />
       </Drawer>
+
+      <Drawer
+        opened={isAddDrawerOpen}
+        onClose={closeAddDrawer}
+        title="Add a Department"
+        position="right"
+      >
+        <AddDepartment setIsRefresh={setIsRefresh} />
+      </Drawer>
+
       <main className="flex flex-col items-center">
         <h2 className="text-center text-base md:text-lg font-bold mt-4">
           Department List
@@ -60,9 +82,7 @@ const Department = () => {
         <div>
           <button
             className="text-sm md:text-base bg-secondary hover:bg-secondary-focus text-white p-1 m-2 ml-4 shadow flex items-center justify-center"
-            onClick={() => {
-              navigate("/adddepartment");
-            }}
+            onClick={handleAddDepartment}
           >
             <img className="h-5 w-5" src="/icons/plus.svg" />
             <span>Add Department</span>

@@ -7,7 +7,6 @@ import Register from "./pages/register";
 import About from "./pages/about";
 import Record from "./components/record";
 import Department from "./pages/department";
-import AddDepartment from "./pages/addDepartment";
 import Roles from "./pages/roles";
 import AuthWrapper from "./components/authWrapper";
 
@@ -28,7 +27,6 @@ const App = () => {
         <Route element={<AuthWrapper />}>
           <Route exact path="/roles" element={<Roles />} />
           <Route exact path="/department" element={<Department />} />
-          <Route exact path="/adddepartment" element={<AddDepartment />} />
           <Route exact path="/record" element={<Record />} />
         </Route>
       </Routes>

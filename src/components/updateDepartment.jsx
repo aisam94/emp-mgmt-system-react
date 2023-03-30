@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { editDepartment } from "../actions/departmentActions";
 import { useDispatch } from "react-redux";
-import { Button, FileInput, TextInput, Textarea } from "@mantine/core";
+import { Button, TextInput, Textarea } from "@mantine/core";
 
 const UpdateDepartment = ({ department, setIsRefresh, deleteItem }) => {
   const dispatch = useDispatch();
@@ -9,9 +9,8 @@ const UpdateDepartment = ({ department, setIsRefresh, deleteItem }) => {
   const [formData, setFormData] = useState({
     name: department.name,
     description: department.description,
-    pictureUrl: department.pictureUrl,
   });
-  const { name, description, pictureUrl } = formData;
+  const { name, description } = formData;
 
   function change(e) {
     e.preventDefault();
@@ -24,7 +23,6 @@ const UpdateDepartment = ({ department, setIsRefresh, deleteItem }) => {
       editDepartment({
         name,
         description,
-        pictureUrl,
         id: department._id,
       })
     );
@@ -57,22 +55,6 @@ const UpdateDepartment = ({ department, setIsRefresh, deleteItem }) => {
           name="description"
           value={description}
           minRows={5}
-          onChange={change}
-        />
-
-        {/* Picture */}
-        <FileInput
-          label="Profile picture"
-          id="file"
-          placeholder="Upload picture"
-          name="picture"
-          accept="image/png, image/jpeg"
-        />
-        <span className="text-xs">Or</span>
-        <TextInput
-          placeholder="Insert picture URL"
-          name="pictureUrl"
-          value={pictureUrl}
           onChange={change}
         />
       </div>
