@@ -4,9 +4,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { deleteEmployee, listEmployees } from "../actions/employeeActions";
 import Loading from "./loading";
 import { Table } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { Drawer, Button } from "@mantine/core";
 import UpdateEmployee from "./updateEmployee";
+import AddEmployee from "../pages/addEmployee";
 
 const Record = () => {
   const navigate = useNavigate();
@@ -16,7 +16,8 @@ const Record = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const [opened, { open, close }] = useDisclosure(false);
+  const [isUpdateDrawerOpen, setIsUpdateDrawerOpen] = useState(false);
+  const [isAddDrawerOpen, setIsAddDrawerOpen] = useState(false);
   const [currentEmployee, setCurrentEmployee] = useState();
 
   const [isRefresh, setIsRefresh] = useState(false);
@@ -40,7 +41,20 @@ const Record = () => {
 
   function handleUpdateEmployee(employee) {
     setCurrentEmployee(employee);
-    open();
+    // open();
+    setIsUpdateDrawerOpen(true);
+  }
+
+  function handleAddEmployee() {
+    setIsAddDrawerOpen(true);
+  }
+
+  function closeUpdateDrawer() {
+    setIsUpdateDrawerOpen(false);
+  }
+
+  function closeAddDrawer() {
+    setIsAddDrawerOpen(false);
   }
 
   useEffect(() => {
@@ -51,8 +65,8 @@ const Record = () => {
   return (
     <div className="mb-12">
       <Drawer
-        opened={opened}
-        onClose={close}
+        opened={isUpdateDrawerOpen}
+        onClose={closeUpdateDrawer}
         title={"Update employee's detail"}
         position="right"
       >
@@ -63,6 +77,15 @@ const Record = () => {
         />
       </Drawer>
 
+      <Drawer
+        opened={isAddDrawerOpen}
+        onClose={closeAddDrawer}
+        title={"Add an employee"}
+        position="right"
+      >
+        <AddEmployee />
+      </Drawer>
+
       <main className="flex flex-col items-center">
         <h2 className="text-center text-base md:text-lg font-bold mt-4">
           Employee Records
@@ -70,9 +93,7 @@ const Record = () => {
         <div>
           <button
             className="bg-secondary hover:bg-secondary-focus text-sm md:text-base text-white p-1 m-2 ml-4 shadow flex items-center justify-center"
-            onClick={() => {
-              navigate("/addemployee");
-            }}
+            onClick={handleAddEmployee}
           >
             <img className="h-5 w-5" src="/icons/plus.svg" />
             <span>Add Employee</span>
