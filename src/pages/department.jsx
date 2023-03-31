@@ -13,16 +13,12 @@ import AddDepartment from "./addDepartment";
 const Department = () => {
   const dispatch = useDispatch();
   const departmentList = useSelector((state) => state.departmentList);
-  const { loading, error, departments } = departmentList;
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { loading, departments } = departmentList;
 
   const [isUpdateDrawerOpen, setIsUpdateDrawerOpen] = useState(false);
   const [isAddDrawerOpen, setIsAddDrawerOpen] = useState(false);
 
   const [currentDepartment, setCurrentDepartment] = useState();
-
-  const [isRefresh, setIsRefresh] = useState(false);
 
   function handleUpdateDepartment(department) {
     setCurrentDepartment(department);
@@ -31,7 +27,6 @@ const Department = () => {
 
   async function deleteItem(department) {
     await dispatch(deleteDepartment(department._id));
-    setIsRefresh(true);
   }
 
   function handleAddDepartment() {
@@ -48,8 +43,7 @@ const Department = () => {
 
   useEffect(() => {
     dispatch(listDepartments());
-    setIsRefresh(false);
-  }, [dispatch, isRefresh]);
+  }, []);
 
   return (
     <div className="mb-12">
@@ -61,7 +55,6 @@ const Department = () => {
       >
         <UpdateDepartment
           department={currentDepartment}
-          setIsRefresh={setIsRefresh}
           deleteItem={deleteItem}
         />
       </Drawer>
@@ -72,7 +65,7 @@ const Department = () => {
         title="Add a Department"
         position="right"
       >
-        <AddDepartment setIsRefresh={setIsRefresh} />
+        <AddDepartment />
       </Drawer>
 
       <main className="flex flex-col items-center">
@@ -99,6 +92,7 @@ const Department = () => {
           >
             <thead>
               <tr>
+                <th>#</th>
                 <th>Department</th>
                 <th>Description</th>
               </tr>
@@ -118,6 +112,7 @@ const Department = () => {
                     className="cursor-pointer"
                     onClick={(e) => handleUpdateDepartment(department)}
                   >
+                    <td>{index + 1}</td>
                     <td className="flex items-center">
                       <span>{department.name}</span>
                     </td>

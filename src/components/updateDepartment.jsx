@@ -3,7 +3,7 @@ import { editDepartment } from "../actions/departmentActions";
 import { useDispatch } from "react-redux";
 import { Button, TextInput, Textarea } from "@mantine/core";
 
-const UpdateDepartment = ({ department, setIsRefresh, deleteItem }) => {
+const UpdateDepartment = ({ department, deleteItem }) => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -17,16 +17,15 @@ const UpdateDepartment = ({ department, setIsRefresh, deleteItem }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  async function submit(e) {
+  function submit(e) {
     e.preventDefault();
-    await dispatch(
+    dispatch(
       editDepartment({
         name,
         description,
         id: department._id,
       })
     );
-    setIsRefresh(true);
   }
 
   function handleDelete() {

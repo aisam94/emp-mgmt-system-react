@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { addDepartment } from "../actions/departmentActions";
 import { TextInput, Textarea } from "@mantine/core";
 
-const AddDepartment = ({ setIsRefresh }) => {
+const AddDepartment = () => {
   const dispatch = useDispatch();
   const initialState = {
     name: "",
@@ -16,11 +16,10 @@ const AddDepartment = ({ setIsRefresh }) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  async function submit(event) {
+  function submit(event) {
     event.preventDefault();
-    await dispatch(addDepartment({ name, description }));
+    dispatch(addDepartment({ name, description }));
     setFormData(initialState);
-    setIsRefresh(true);
   }
 
   return (

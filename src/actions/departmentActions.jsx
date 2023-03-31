@@ -1,5 +1,4 @@
-import axios from "axios";
-import API from '../api';
+import API from "../api";
 
 export const addDepartment =
   ({ name, description, pictureUrl }) =>
@@ -58,10 +57,7 @@ export const listDepartments = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await API.get(
-      "/api/department",
-      config
-    );
+    const { data } = await API.get("/api/department", config);
 
     dispatch({ type: "DEPARTMENT_LIST_SUCCESS", payload: data });
   } catch (error) {
@@ -90,7 +86,8 @@ export const deleteDepartment = (id) => async (dispatch, getState) => {
       },
     };
 
-    await API.delete(`/api/department/${id}`, config);
+    const { data } = await API.delete(`/api/department/${id}`, config);
+    dispatch({ type: "DEPARTMENT_DELETE_SUCCESS", payload: data });
   } catch (error) {
     dispatch({
       type: "DEPARTMENT_DELETE_FAIL",
@@ -125,7 +122,7 @@ export const editDepartment =
         config
       );
 
-      dispatch({ type: "DEPARTMENT_ADD_SUCCESS", payload: data });
+      dispatch({ type: "DEPARTMENT_EDIT_SUCCESS", payload: data });
     } catch (error) {
       dispatch({
         type: "DEPARTMENT_ADD_FAIL",
