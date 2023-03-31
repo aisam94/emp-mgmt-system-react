@@ -64,6 +64,7 @@ const Record = () => {
         <UpdateEmployee
           employee={currentEmployee}
           deleteItem={deleteItem}
+          closeUpdateDrawer={closeUpdateDrawer}
         />
       </Drawer>
 

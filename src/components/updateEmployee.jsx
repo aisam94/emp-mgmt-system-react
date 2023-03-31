@@ -6,11 +6,13 @@ import { listRoles } from "../actions/rolesActions";
 import {
   Button,
   FileInput,
+  Modal,
   MultiSelect,
   NumberInput,
   Select,
   TextInput,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
 const parseRoles = (roles) => {
   let arr = [];
@@ -22,8 +24,9 @@ const parseRoles = (roles) => {
   return arr;
 };
 
-const UpdateEmployee = ({ employee, deleteItem }) => {
+const UpdateEmployee = ({ employee, deleteItem, closeUpdateDrawer }) => {
   const dispatch = useDispatch();
+  const [opened, { open, close }] = useDisclosure(false);
   const [formData, setFormData] = useState({
     name: employee.name,
     email: employee.email,
@@ -70,8 +73,14 @@ const UpdateEmployee = ({ employee, deleteItem }) => {
     );
   }
 
-  function handleDelete() {
+  function openDeleteConfirmation() {
+    open();
+  }
+
+  function deleteEmployee() {
     deleteItem(employee);
+    close();
+    closeUpdateDrawer();
   }
 
   useEffect(() => {
@@ -81,6 +90,31 @@ const UpdateEmployee = ({ employee, deleteItem }) => {
 
   return (
     <form className="flex flex-col" onSubmit={(event) => submit(event)}>
+      <Modal
+        opened={opened}
+        onClose={close}
+        title="Delete confirmation"
+        centered
+        shadow
+      >
+        <div className="text-red mb-8">
+          Are you sure you want to delete this employee?
+        </div>
+        <div className="flex justify-around">
+          <button
+            className="bg-white hover:bg-gray text-black px-4 py-1 w-20 rounded border cursor-pointer"
+            onClick={close}
+          >
+            Cancel
+          </button>
+          <button
+            className="bg-red hover:bg-red-focus text-white px-4 py-1 w-20 rounded cursor-pointer"
+            onClick={deleteEmployee}
+          >
+            Yes
+          </button>
+        </div>
+      </Modal>
       {/*Input Form*/}
       <div className="flex flex-col space-y-4 mb-5">
         {/*Name*/}
@@ -179,7 +213,7 @@ const UpdateEmployee = ({ employee, deleteItem }) => {
       {/* Delete button */}
       <div className="flex w-full px-1 mb-2 mt-8 justify-between items-center">
         <span className="text-red">Delete this employee?</span>
-        <Button className="bg-red" color="red" uppercase onClick={handleDelete}>
+        <Button className="bg-red" color="red" uppercase onClick={openDeleteConfirmation}>
           Delete
         </Button>
       </div>
