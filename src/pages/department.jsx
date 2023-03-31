@@ -25,8 +25,8 @@ const Department = () => {
     setIsUpdateDrawerOpen(true);
   }
 
-  async function deleteItem(department) {
-    await dispatch(deleteDepartment(department._id));
+  function deleteItem(department) {
+    dispatch(deleteDepartment(department._id));
   }
 
   function handleAddDepartment() {
@@ -56,6 +56,7 @@ const Department = () => {
         <UpdateDepartment
           department={currentDepartment}
           deleteItem={deleteItem}
+          closeUpdateDrawer={closeUpdateDrawer}
         />
       </Drawer>
 
