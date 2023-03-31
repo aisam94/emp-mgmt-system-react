@@ -22,7 +22,7 @@ const parseRoles = (roles) => {
   return arr;
 };
 
-const UpdateEmployee = ({ employee, setIsRefresh, deleteItem }) => {
+const UpdateEmployee = ({ employee, deleteItem }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: employee.name,
@@ -54,9 +54,9 @@ const UpdateEmployee = ({ employee, setIsRefresh, deleteItem }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  async function submit(event) {
+  function submit(event) {
     event.preventDefault();
-    await dispatch(
+    dispatch(
       editEmployee({
         name,
         email,
@@ -68,7 +68,6 @@ const UpdateEmployee = ({ employee, setIsRefresh, deleteItem }) => {
         id: employee._id,
       })
     );
-    setIsRefresh(true);
   }
 
   function handleDelete() {

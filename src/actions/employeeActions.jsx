@@ -1,5 +1,4 @@
-import axios from "axios";
-import API from '../api';
+import API from "../api";
 
 export const listEmployees = () => async (dispatch, getState) => {
   try {
@@ -19,10 +18,7 @@ export const listEmployees = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await API.get(
-      "/api/employees",
-      config
-    );
+    const { data } = await API.get("/api/employees", config);
 
     dispatch({ type: "EMPLOYEES_LIST_SUCCESS", payload: data });
   } catch (error) {
@@ -109,11 +105,10 @@ export const editEmployee =
         },
         config
       );
-
-      dispatch({ type: "EMPLOYEES_ADD_SUCCESS", payload: data });
+      dispatch({ type: "EMPLOYEES_EDIT_SUCCESS", payload: data });
     } catch (error) {
       dispatch({
-        type: "EMPLOYEES_ADD_FAIL",
+        type: "EMPLOYEES_EDIT_FAIL",
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
@@ -137,9 +132,9 @@ export const deleteEmployee = (id) => async (dispatch, getState) => {
       },
     };
 
-    await API.delete(`/api/employees/${id}`, config);
+    const { data } = await API.delete(`/api/employees/${id}`, config);
 
-    dispatch({ type: "EMPLOYEES_DELETE_SUCCESS" });
+    dispatch({ type: "EMPLOYEES_DELETE_SUCCESS", payload: data });
   } catch (error) {
     dispatch({
       type: "EMPLOYEES_DELETE_FAIL",

@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
 import { deleteEmployee, listEmployees } from "../actions/employeeActions";
 import Loading from "./loading";
 import { Table } from "@mantine/core";
-import { Drawer, Button } from "@mantine/core";
+import { Drawer } from "@mantine/core";
 import UpdateEmployee from "./updateEmployee";
 import AddEmployee from "../pages/addEmployee";
 
 const Record = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const employeesList = useSelector((state) => state.employeesList);
-  const { loading, error, employees } = employeesList;
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { loading, employees } = employeesList;
 
   const [isUpdateDrawerOpen, setIsUpdateDrawerOpen] = useState(false);
   const [isAddDrawerOpen, setIsAddDrawerOpen] = useState(false);
   const [currentEmployee, setCurrentEmployee] = useState();
-
-  const [isRefresh, setIsRefresh] = useState(false);
 
   const parseRole = (roles) => {
     const allowedRoleToShow = 3;
@@ -34,9 +28,8 @@ const Record = () => {
     return arr.filter(Boolean).join();
   };
 
-  async function deleteItem(employee) {
-    await dispatch(deleteEmployee(employee._id));
-    setIsRefresh(true);
+  function deleteItem(employee) {
+    dispatch(deleteEmployee(employee._id));
   }
 
   function handleUpdateEmployee(employee) {
@@ -58,8 +51,7 @@ const Record = () => {
 
   useEffect(() => {
     dispatch(listEmployees());
-    setIsRefresh(false);
-  }, [dispatch, isRefresh]);
+  }, [dispatch]);
 
   return (
     <div className="mb-12">
@@ -71,7 +63,6 @@ const Record = () => {
       >
         <UpdateEmployee
           employee={currentEmployee}
-          setIsRefresh={setIsRefresh}
           deleteItem={deleteItem}
         />
       </Drawer>
@@ -82,7 +73,7 @@ const Record = () => {
         title={"Add an employee"}
         position="right"
       >
-        <AddEmployee setIsRefresh={setIsRefresh} />
+        <AddEmployee />
       </Drawer>
 
       <main className="flex flex-col items-center">
@@ -109,6 +100,7 @@ const Record = () => {
           >
             <thead>
               <tr className="">
+                <th>#</th>
                 <th>Name</th>
                 <th>Employee Id</th>
                 <th>Role</th>
@@ -131,6 +123,7 @@ const Record = () => {
                     className="cursor-pointer"
                     onClick={(e) => handleUpdateEmployee(employee)}
                   >
+                    <td>{index + 1}</td>
                     <td className="flex items-center">
                       <img
                         src={employee.pictureUrl}
