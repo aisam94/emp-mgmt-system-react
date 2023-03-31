@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { listRoles, deleteRole } from "../actions/rolesActions";
 import { addRole } from "../actions/rolesActions";
 import Loading from "../components/loading";
@@ -10,15 +9,11 @@ import { Drawer, Button } from "@mantine/core";
 import UpdateRole from "./updateRole";
 
 const Roles = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const rolesList = useSelector((state) => state.rolesList);
-  const { loading, error, roles } = rolesList;
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { loading, roles } = rolesList;
 
   const [roleInput, setRoleInput] = useState("");
-  const [isSubmit, setIsSubmit] = useState(false);
 
   const [opened, { open, close }] = useDisclosure(false);
   const [currentRole, setCurrentRole] = useState();
@@ -27,12 +22,11 @@ const Roles = () => {
     setRoleInput(event.target.value);
   };
 
-  async function submit(event) {
+  function submit(event) {
     event.preventDefault();
     if (roleInput.trim() === "") return;
-    await dispatch(addRole({ name: roleInput }));
+    dispatch(addRole({ name: roleInput }));
     setRoleInput("");
-    setIsSubmit(true);
   }
 
   function handleRoleEdit(role) {
@@ -40,16 +34,13 @@ const Roles = () => {
     open();
   }
 
-  async function deleteItem(role) {
-    // event.preventDefault();
-    await dispatch(deleteRole(role._id));
-    setIsSubmit(true);
+  function deleteItem(role) {
+    dispatch(deleteRole(role._id));
   }
 
   useEffect(() => {
     dispatch(listRoles());
-    setIsSubmit(false);
-  }, [dispatch, isSubmit]);
+  }, [dispatch]);
 
   return (
     <div className="mb-12">
@@ -59,7 +50,7 @@ const Roles = () => {
         title="Update role"
         position="right"
       >
-        <UpdateRole role={currentRole} setIsSubmit={setIsSubmit} />
+        <UpdateRole role={currentRole} />
       </Drawer>
 
       <main className="flex flex-col items-center">
@@ -98,6 +89,7 @@ const Roles = () => {
         >
           <thead>
             <tr className="" bgcolor="">
+              <th>#</th>
               <th>Roles</th>
               <th className="text-center">Action</th>
             </tr>
@@ -113,6 +105,7 @@ const Roles = () => {
             ) : (
               roles.map((role, index) => (
                 <tr key={index}>
+                  <td>{index + 1}</td>
                   <td
                     className="text-center cursor-pointer"
                     onClick={(e) => handleRoleEdit(role)}

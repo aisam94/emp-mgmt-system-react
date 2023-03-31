@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editRole } from "../actions/rolesActions";
 
-const UpdateRole = ({ role, setIsSubmit }) => {
+const UpdateRole = ({ role }) => {
   const [currentRole, setCurrentRole] = useState(role);
 
   const dispatch = useDispatch();
@@ -13,15 +13,14 @@ const UpdateRole = ({ role, setIsSubmit }) => {
     setCurrentRole(newRole);
   }
 
-  async function submit(event) {
+   function submit(event) {
     event.preventDefault();
-    await dispatch(
+     dispatch(
       editRole({
         name: currentRole.name,
         id: currentRole._id,
       })
     );
-    setIsSubmit(true);
   }
 
   return (

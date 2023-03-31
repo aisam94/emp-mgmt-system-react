@@ -1,5 +1,4 @@
-import axios from "axios";
-import API from '../api';
+import API from "../api";
 
 export const addRole =
   ({ name }) =>
@@ -85,7 +84,8 @@ export const deleteRole = (id) => async (dispatch, getState) => {
       },
     };
 
-    await API.delete(`/api/roles/${id}`, config);
+    const { data } = await API.delete(`/api/roles/${id}`, config);
+    dispatch({ type: "ROLE_DELETE_SUCCESS", payload: data });
   } catch (error) {
     dispatch({
       type: "ROLE_DELETE_FAIL",
@@ -114,13 +114,9 @@ export const editRole =
         },
       };
 
-      const { data } = await API.put(
-        `/api/roles/${id}`,
-        { name },
-        config
-      );
+      const { data } = await API.put(`/api/roles/${id}`, { name }, config);
 
-      dispatch({ type: "ROLE_ADD_SUCCESS", payload: data });
+      dispatch({ type: "ROLE_EDIT_SUCCESS", payload: data });
     } catch (error) {
       dispatch({
         type: "ROLE_ADD_FAIL",
