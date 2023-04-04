@@ -1,0 +1,16 @@
+export const avatars = [
+    { image: '/avatar_icons/account-avatar-profile-user-svgrepo-com.svg', label: 'account-avatar-profile-user-svgrepo-com', value: 'account-avatar-profile-user-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-2-svgrepo-com.svg', label: 'account-avatar-profile-user-2-svgrepo-com', value: 'account-avatar-profile-user-2-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-4-svgrepo-com.svg', label: 'account-avatar-profile-user-4-svgrepo-com', value: 'account-avatar-profile-user-4-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-5-svgrepo-com.svg', label: 'account-avatar-profile-user-5-svgrepo-com', value: 'account-avatar-profile-user-5-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-6-svgrepo-com.svg', label: 'account-avatar-profile-user-6-svgrepo-com', value: 'account-avatar-profile-user-6-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-7-svgrepo-com.svg', label: 'account-avatar-profile-user-7-svgrepo-com', value: 'account-avatar-profile-user-7-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-8-svgrepo-com.svg', label: 'account-avatar-profile-user-8-svgrepo-com', value: 'account-avatar-profile-user-8-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-9-svgrepo-com.svg', label: 'account-avatar-profile-user-9-svgrepo-com', value: 'account-avatar-profile-user-9-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-10-svgrepo-com.svg', label: 'account-avatar-profile-user-10-svgrepo-com', value: 'account-avatar-profile-user-10-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-11-svgrepo-com.svg', label: 'account-avatar-profile-user-11-svgrepo-com', value: 'account-avatar-profile-user-11-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-12-svgrepo-com.svg', label: 'account-avatar-profile-user-12-svgrepo-com', value: 'account-avatar-profile-user-12-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-13-svgrepo-com.svg', label: 'account-avatar-profile-user-13-svgrepo-com', value: 'account-avatar-profile-user-13-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-14-svgrepo-com.svg', label: 'account-avatar-profile-user-14-svgrepo-com', value: 'account-avatar-profile-user-14-svgrepo-com' },
+    { image: '/avatar_icons/account-avatar-profile-user-16-svgrepo-com.svg', label: 'account-avatar-profile-user-16-svgrepo-com', value: 'account-avatar-profile-user-16-svgrepo-com' },
+];
