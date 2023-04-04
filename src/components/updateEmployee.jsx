@@ -4,6 +4,7 @@ import { editEmployee } from "../actions/employeeActions";
 import { listDepartments } from "../actions/departmentActions";
 import { listRoles } from "../actions/rolesActions";
 import {
+  Avatar,
   Button,
   FileInput,
   Modal,
@@ -13,6 +14,7 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { avatars } from "../avatar";
 
 const parseRoles = (roles) => {
   let arr = [];
@@ -23,6 +25,13 @@ const parseRoles = (roles) => {
   }
   return arr;
 };
+
+const SelectAvatar = ({ image, ...others }) => (
+  // <div ref={ref} {...others}>
+  <div {...others}>
+    <Avatar src={image} />
+  </div>
+);
 
 const UpdateEmployee = ({ employee, deleteItem, closeUpdateDrawer }) => {
   const dispatch = useDispatch();
@@ -35,9 +44,10 @@ const UpdateEmployee = ({ employee, deleteItem, closeUpdateDrawer }) => {
     department: employee.department.name,
     age: employee.age,
     pictureUrl: employee.pictureUrl,
+    avatar: employee.avatar,
   });
 
-  const { name, email, employeeId, role, department, age, pictureUrl } =
+  const { name, email, employeeId, role, department, age, pictureUrl, avatar } =
     formData;
 
   // get all department as a list
@@ -68,6 +78,7 @@ const UpdateEmployee = ({ employee, deleteItem, closeUpdateDrawer }) => {
         department,
         age,
         pictureUrl,
+        avatar,
         id: employee._id,
       })
     );
@@ -186,6 +197,16 @@ const UpdateEmployee = ({ employee, deleteItem, closeUpdateDrawer }) => {
           required
         />
 
+        {/* Avatar */}
+        <Select
+          label="Choose your avatar"
+          placeholder="Pick one only"
+          data={avatars}
+          value={avatar}
+          onChange={(e) => changeValue("avatar", e)}
+          itemComponent={SelectAvatar}
+        />
+
         {/* Picture */}
         <FileInput
           label="Profile picture"
@@ -213,7 +234,12 @@ const UpdateEmployee = ({ employee, deleteItem, closeUpdateDrawer }) => {
       {/* Delete button */}
       <div className="flex w-full px-1 mb-2 mt-8 justify-between items-center">
         <span className="text-red">Delete this employee?</span>
-        <Button className="bg-red" color="red" uppercase onClick={openDeleteConfirmation}>
+        <Button
+          className="bg-red"
+          color="red"
+          uppercase
+          onClick={openDeleteConfirmation}
+        >
           Delete
         </Button>
       </div>

@@ -126,8 +126,9 @@ const Record = () => {
                   >
                     <td>{index + 1}</td>
                     <td className="flex items-center">
+                      {/* Avatar */}
                       <img
-                        src={employee.pictureUrl}
+                        src={`/avatar_icons/${employee.avatar}.svg`}
                         className="h-2 w-2 mx-1 md:h-10 md:w-10 md:mx-3"
                       />
                       <span>{employee.name}</span>

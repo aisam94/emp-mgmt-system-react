@@ -4,12 +4,14 @@ import { addEmployee } from "../actions/employeeActions";
 import { listDepartments } from "../actions/departmentActions";
 import { listRoles } from "../actions/rolesActions";
 import {
+  Avatar,
   FileInput,
   MultiSelect,
   NumberInput,
   Select,
   TextInput,
 } from "@mantine/core";
+import { avatars } from "../avatar";
 
 const AddEmployee = () => {
   const dispatch = useDispatch();
@@ -22,9 +24,10 @@ const AddEmployee = () => {
     department: "",
     age: "",
     pictureUrl: "",
+    avatar: "",
   };
   const [formData, setFormData] = useState(initialState);
-  const { name, email, employeeId, role, department, age, pictureUrl } =
+  const { name, email, employeeId, role, department, age, pictureUrl, avatar } =
     formData;
 
   // get all departments as a list
@@ -54,11 +57,19 @@ const AddEmployee = () => {
         role,
         department,
         age,
+        avatar,
         pictureUrl,
       })
     );
     setFormData(initialState);
   }
+
+  const SelectAvatar = ({ image, ...others }) => (
+    // <div ref={ref} {...others}>
+    <div {...others}>
+      <Avatar src={image} />
+    </div>
+  );
 
   useEffect(() => {
     dispatch(listRoles());
@@ -137,6 +148,16 @@ const AddEmployee = () => {
           onChange={(e) => changeValue("age", e)}
           withAsterisk
           required
+        />
+
+        {/* Avatar */}
+        <Select
+          label="Choose your avatar"
+          placeholder="Pick one only"
+          data={avatars}
+          value={avatar}
+          onChange={(e) => changeValue("avatar", e)}
+          itemComponent={SelectAvatar}
         />
 
         {/* Picture */}

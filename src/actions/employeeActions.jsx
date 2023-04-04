@@ -33,7 +33,7 @@ export const listEmployees = () => async (dispatch, getState) => {
 };
 
 export const addEmployee =
-  ({ name, email, employeeId, role, department, age, pictureUrl }) =>
+  ({ name, email, employeeId, role, department, age, pictureUrl, avatar }) =>
   async (dispatch, getState) => {
     try {
       dispatch({ type: "EMPLOYEES_ADD_REQUEST" });
@@ -59,6 +59,7 @@ export const addEmployee =
           department: department,
           age: age,
           pictureUrl: pictureUrl,
+          avatar: avatar,
         },
         config
       );
@@ -76,7 +77,17 @@ export const addEmployee =
   };
 
 export const editEmployee =
-  ({ name, email, employeeId, role, department, age, id, pictureUrl }) =>
+  ({
+    name,
+    email,
+    employeeId,
+    role,
+    department,
+    age,
+    id,
+    pictureUrl,
+    avatar,
+  }) =>
   async (dispatch, getState) => {
     try {
       dispatch({ type: "EMPLOYEES_EDIT_REQUEST" });
@@ -102,6 +113,7 @@ export const editEmployee =
           department: department,
           age: age,
           pictureUrl: pictureUrl,
+          avatar: avatar,
         },
         config
       );
