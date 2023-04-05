@@ -3,17 +3,19 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
-      'primary': '#7B2CBF', //purple
-      'primary-focus': '#3C096C',
-      'secondary': '#FB5607',//orange
-      'secondary-focus': '#D94804',
-      'accent': '#FFBE0B', //yellow
-      'accent-focus': '#FFC836',
+      'primary': '#003566',//darkblue
+      'primary-focus': '#001D3D',
+      'secondary': '#2176FF',//lightblue
+      'secondary-focus': '#0A68FF',
+      'tertiary': '#F79824',//orange
+      'tertiary-focus': '#F17300',
+      'accent': '#FFC300', //yellow
+      'accent-focus': '#EDB600',
       'red': '#FA5252',
       'red-focus': '#FF6B6B',
-      'black': '#180631',
-      'gray': '#E2E2E2',
-      'gray-focus': '#C7C7C7',
+      'black': '#31393C',
+      'gray': '#DBE4EE',
+      'gray-focus': '#81A4CD',
       'white': '#fdfffc',
       'info': '#5bc0de',
       'success': '#5cb85c',
