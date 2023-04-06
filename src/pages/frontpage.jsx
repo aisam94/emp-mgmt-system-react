@@ -23,7 +23,7 @@ const FrontPage = () => {
             <h1 className="font-bold text-5xl mt-10 text-center">
               Manage your employees effortlessly
             </h1>
-            <p className="text-xl text-center mx-auto my-10 w-2/3 md:w-1/2 md:leading-loose">
+            <p className="text-xl text-center mx-auto my-10 w-3/4 md:w-1/2 md:leading-loose">
               Fulfill your organization's management needs with this website.
               Gain better understanding of your entire workforce with a proper
               system. Start by creating an account or login if you already have
@@ -42,12 +42,12 @@ const FrontPage = () => {
         <div className="bg-gray w-full">
           <div className="page-width-container w-full flex flex-col items-center">
             {/* One */}
-            <div className="py-8 flex justify-between w-full">
-              <div className="frontpage-context flex flex-col mx-4">
-                <span className="text-3xl font-bold">
+            <div className="py-8 flex flex-col md:flex-row w-full items-center md:items-start justify-center">
+              <div className="frontpage-context flex flex-col mx-4 mb-4">
+                <span className="text-xl md:text-3xl font-bold">
                   Create employees record with ease
                 </span>
-                <span className="text-lg">
+                <span className="md:text-lg">
                   The system allows you to easily input and track your
                   employees' data. From employee's name to job titles, every
                   data properties can be tracked.
@@ -61,18 +61,18 @@ const FrontPage = () => {
               </div>
             </div>
             {/* Two */}
-            <div className=" py-8 flex justify-between w-full">
+            <div className=" py-8 flex flex-col-reverse md:flex-row w-full items-center md:items-start justify-center">
               <div>
                 <img
                   className="frontpage-context border-4 mx-4"
                   src="/screenshots/update_employee.png"
                 />
               </div>
-              <div className="frontpage-context flex flex-col mx-4">
-                <span className="text-3xl font-bold">
+              <div className="frontpage-context flex flex-col mx-4 mb-4">
+                <span className="text-xl md:text-3xl font-bold">
                   Manage your employees
                 </span>
-                <span className="text-lg">
+                <span className="md:text-lg">
                   You can update your employees information as needed. You can
                   assign them to their own respective department and roles in
                   the company.

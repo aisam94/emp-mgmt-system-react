@@ -3,7 +3,19 @@
 @tailwind utilities;
 
 .frontpage-context {
-  width: 600px;
+  max-width: 600px;
+}
+
+@media screen and (max-width: 1280px) {
+  .frontpage-context {
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .frontpage-context {
+    max-width: 300px;
+  }
 }
 
 .frontpage-context-container {
@@ -14,4 +26,8 @@
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.footer-item-list * {
+  margin-top: 0.5rem;
 }

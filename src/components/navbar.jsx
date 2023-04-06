@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/userActions";
 import { NavLink, useNavigate } from "react-router-dom";
 import { isExpired } from "react-jwt";
+import { Burger } from "@mantine/core";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -17,11 +18,11 @@ export default function Navbar() {
 
   return (
     <nav className="bg-primary shadow">
-      <div className="page-width-container flex flex-col w-full md:flex-row md:justify-between items-center  shadow-lg text-white py-3 px-2">
+      <div className="page-width-container flex w-full md:flex-row justify-between items-center shadow-lg text-white py-3 px-2">
         {/* Logo and company */}
         <div className="flex items-center">
           <img
-            className="h-9 w-9 mx-4 hidden md:inline cursor-pointer hover:scale-110"
+            className="h-9 w-9 mx-4 md:inline cursor-pointer hover:scale-110"
             src="/icons/community.svg"
             onClick={() => navigate("/")}
           />
@@ -33,7 +34,10 @@ export default function Navbar() {
           )}
         </div>
 
-        <div className="flex ">
+        <div className="md:hidden">
+          <Burger color="white" />
+        </div>
+        <div className="hidden md:flex">
           {/* <NavLink className="mx-2" to="/about">
           <h1>About</h1>
         </NavLink> */}
